@@ -63,7 +63,7 @@ augroup collumnLimit
         \ let w:m1=matchadd('CollumnLimit', pattern, -1)
 augroup END
 
-" Searcing
+" Searching
 set incsearch
 set hlsearch
 nnoremap <silent><C-n> :noh<Enter>
