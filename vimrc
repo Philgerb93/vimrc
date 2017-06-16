@@ -83,3 +83,44 @@ inoremap <silent><F6> <Esc>:IndentLinesToggle<Enter>
 nnoremap <F8> :q<Enter>
 inoremap <F8> <Esc>:q<Enter>
 
+" Automatic parenthesis/bracket/quotes closing
+inoremap ( ()<Left>
+inoremap { {}<Left>
+inoremap [ []<Left>
+autocmd FileType html,vim inoremap < <lt>><Left>
+
+inoremap <silent>) <c-r>=ClosePair(')')<Enter>
+inoremap <silent>} <c-r>=ClosePair('}')<Enter>
+inoremap <silent>] <c-r>=ClosePair(']')<Enter>
+autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<Enter>
+
+inoremap <silent>" <c-r>=QuoteDelim('"')<Enter>
+inoremap <silent>' <c-r>=QuoteDelim("'")<Enter>
+
+function ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
+
+function QuoteDelim(char)
+    let line = getline('.')
+    let col = col('.')
+    if line[col - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char.a:char."\<Left>"
+    endif
+endf
+
+
+
+
+
+
+
+
+
+
