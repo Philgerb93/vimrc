@@ -106,21 +106,12 @@ function ClosePair(char)
 endf
 
 function QuoteDelim(char)
-    let line = getline('.')
-    let col = col('.')
-    if line[col - 1] == a:char
+    if (&ft=='vim' && a:char == '"')
+        return a:char
+    elseif getline('.')[col('.') - 1] == a:char
         return "\<Right>"
     else
         return a:char.a:char."\<Left>"
     endif
 endf
-
-
-
-
-
-
-
-
-
 
