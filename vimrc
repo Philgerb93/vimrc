@@ -66,6 +66,7 @@ augroup END
 " Searcing
 set incsearch
 set hlsearch
+nnoremap <silent><C-n> :noh<Enter>
 
 " Folding
 set foldenable
