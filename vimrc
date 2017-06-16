@@ -77,7 +77,7 @@ set foldmethod=indent
 
 " Mapping
 nnoremap <F5> :w<Enter>
-inoremap <F5> <Esc>:w<Enter>i
+inoremap <F5> <Esc><Right>:w<Enter>i
 nnoremap <silent><F6> :IndentLinesToggle<Enter>
 inoremap <silent><F6> <Esc>:IndentLinesToggle<Enter>
 nnoremap <F8> :q<Enter>
