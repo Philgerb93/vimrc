@@ -115,3 +115,19 @@ function QuoteDelim(char)
     endif
 endf
 
+" Automatic double parenthesis/brackets/quotes removal
+inoremap <silent><BS> <c-r>=BSCheck()<Enter>
+
+function BSCheck()
+    let leftC = ['(', '{', '[', '<', '"', "'"]
+    let rightC = [')', '}', ']', '>', '"', "'"]
+    let line = getline('.')
+    let col = col('.')
+    for i in [0, 1, 2, 3, 4, 5]
+        if (line[col - 2] == leftC[i] && line[col - 1] == rightC[i])
+            return "\<Right>\<BS>\<BS>"
+        endif
+    endfor
+    return "\<BS>"
+endf
+
