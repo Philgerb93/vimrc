@@ -106,7 +106,7 @@ function ClosePair(char)
 endf
 
 function QuoteDelim(char)
-    if (&ft=='vim' && a:char == '"')
+    if &ft=='vim' && a:char == '"' || getline('.')[col('.') - 2] == '\'
         return a:char
     elseif getline('.')[col('.') - 1] == a:char
         return "\<Right>"
@@ -124,7 +124,7 @@ function BSCheck()
     let line = getline('.')
     let col = col('.')
     for i in [0, 1, 2, 3, 4, 5]
-        if (line[col - 2] == leftC[i] && line[col - 1] == rightC[i])
+        if line[col - 2] == leftC[i] && line[col - 1] == rightC[i]
             return "\<Right>\<BS>\<BS>"
         endif
     endfor
