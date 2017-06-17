@@ -131,3 +131,14 @@ function BSCheck()
     return "\<BS>"
 endf
 
+" Automatic indent between curly braces
+inoremap <silent><Enter> <c-r>=EnterCheck()<Enter>
+
+function EnterCheck()
+    if getline('.')[col('.') - 2] == '{' && getline('.')[col('.') - 1] == '}'
+        return "\<Enter>\<Enter>\<Up>\<Tab>"
+    else
+        return "\<Enter>"
+    endif
+endf
+
