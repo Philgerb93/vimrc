@@ -5,7 +5,7 @@
 1. Clone github repo from home directory
 ```shell
 cd ~
-git https://github.com/Philgerb93/vimrc.git VimConfig
+git clone https://github.com/Philgerb93/vimrc.git VimConfig
 ```
 
 2. Use installer in VimConfig directory
