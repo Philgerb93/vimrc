@@ -95,12 +95,10 @@ inoremap <silent>] <c-r>=ClosePair(']')<CR>
 autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<CR>
 
 inoremap <silent>" <c-r>=QuoteDelim('"')<CR>
-autocmd FileType c,cpp,java,python,vim inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
+inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
 
 function OpenPair(char, opChar)
-    let allowedChars = [' ', ')', '}', ']']
-    let line = getline('.')
-    if col('.') == col('$') || get(allowedChars, line[col('.') - 1], '$') != '$'
+    if PairAllowed()
         return a:char.a:opChar."\<Left>"
     else
         return a:char
@@ -116,12 +114,38 @@ function ClosePair(char)
 endf
 
 function QuoteDelim(char)
-    if &ft=='vim' && a:char == '"' || getline('.')[col('.') - 2] == '\'
-        return a:char
+    if PairAllowed() && NotInWord(a:char) && !(&ft=='vim' && a:char == '"')
+        \ && getline('.')[col('.') - 2] != '\'
+        return a:char.a:char."\<Left>"
     elseif getline('.')[col('.') - 1] == a:char
         return "\<Right>"
     else
-        return a:char.a:char."\<Left>"
+        return a:char
+    endif
+endf
+
+function PairAllowed()
+    if col('.') == col('$')
+        return 1
+    endif
+    for char in [' ', ')', '}', ']']
+        if getline('.')[col('.') - 1] == char
+            return 1
+        endif
+    endfor
+    return 0
+endf
+
+function NotInWord(char)
+    let prev_char = getline('.')[col('.') - 2]
+    if a:char != "'" || col('$') == 1
+        return 1
+    endif
+    if !(prev_char >= 'a' && prev_char <= 'z' 
+        \ || prev_char >= 'A' && prev_char <= 'Z')
+        return 1
+    else
+        return 0
     endif
 endf
 
