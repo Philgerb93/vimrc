@@ -95,7 +95,7 @@ inoremap <silent>] <c-r>=ClosePair(']')<CR>
 autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<CR>
 
 inoremap <silent>" <c-r>=QuoteDelim('"')<CR>
-inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
+autocmd FileType c,cpp,java,python inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
 
 function OpenPair(char, opChar)
     let line = getline('.')
