@@ -98,8 +98,9 @@ inoremap <silent>" <c-r>=QuoteDelim('"')<CR>
 autocmd FileType c,cpp,java,python inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
 
 function OpenPair(char, opChar)
+    let allowedChars = [' ', ')', '}', ']']
     let line = getline('.')
-    if col('.') == col('$') || line[col('.') - 1] == ' '
+    if col('.') == col('$') || get(allowedChars, line[col('.') - 1], '$') != '$'
         return a:char.a:opChar."\<Left>"
     else
         return a:char
