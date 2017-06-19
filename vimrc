@@ -84,9 +84,9 @@ nnoremap <F8> :q<Enter>
 inoremap <F8> <Esc>:q<Enter>
 
 " Automatic parenthesis/bracket/quotes closing
-inoremap ( ()<Left>
-inoremap { {}<Left>
-inoremap [ []<Left>
+inoremap <silent>( <c-r>=OpenPair('(', ')')<Enter>
+inoremap <silent>{ <c-r>=OpenPair('{', '}')<Enter>
+inoremap <silent>[ <c-r>=OpenPair('[', ']')<Enter>
 autocmd FileType html,vim inoremap < <lt>><Left>
 
 inoremap <silent>) <c-r>=ClosePair(')')<Enter>
@@ -96,6 +96,15 @@ autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<Enter>
 
 inoremap <silent>" <c-r>=QuoteDelim('"')<Enter>
 inoremap <silent>' <c-r>=QuoteDelim("'")<Enter>
+
+function OpenPair(char, opChar)
+    let line = getline('.')
+    if col('.') == col('$') || line[col('.') - 1] == ' '
+        return a:char.a:opChar."\<Left>"
+    else
+        return a:char
+    endif
+endf
 
 function ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
@@ -135,7 +144,8 @@ endf
 inoremap <silent><Enter> <c-r>=EnterCheck()<Enter>
 
 function EnterCheck()
-    if getline('.')[col('.') - 2] == '{' && getline('.')[col('.') - 1] == '}'
+    let line = getline('.')
+    if line[col('.') - 2] == '{' && line[col('.') - 1] == '}'
         return "\<Enter>\<Enter>\<Up>\<Tab>"
     else
         return "\<Enter>"
