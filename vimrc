@@ -67,7 +67,7 @@ augroup END
 " Searching
 set incsearch
 set hlsearch
-nnoremap <silent><C-n> :noh<Enter>
+nnoremap <silent><C-n> :noh<CR>
 
 " Folding
 set foldenable
@@ -76,26 +76,26 @@ set foldnestmax=1
 set foldmethod=indent
 
 " Mapping
-nnoremap <F5> :w<Enter>
-inoremap <F5> <Esc><Right>:w<Enter>i
-nnoremap <silent><F6> :IndentLinesToggle<Enter>
-inoremap <silent><F6> <Esc>:IndentLinesToggle<Enter>
-nnoremap <F8> :q<Enter>
-inoremap <F8> <Esc>:q<Enter>
+nnoremap <F5> :w<CR>
+inoremap <F5> <Esc><Right>:w<CR>i
+nnoremap <silent><F6> :IndentLinesToggle<CR>
+inoremap <silent><F6> <Esc>:IndentLinesToggle<CR>
+nnoremap <F8> :q<CR>
+inoremap <F8> <Esc>:q<CR>
 
 " Automatic parenthesis/bracket/quotes closing
-inoremap <silent>( <c-r>=OpenPair('(', ')')<Enter>
-inoremap <silent>{ <c-r>=OpenPair('{', '}')<Enter>
-inoremap <silent>[ <c-r>=OpenPair('[', ']')<Enter>
+inoremap <silent>( <c-r>=OpenPair('(', ')')<CR>
+inoremap <silent>{ <c-r>=OpenPair('{', '}')<CR>
+inoremap <silent>[ <c-r>=OpenPair('[', ']')<CR>
 autocmd FileType html,vim inoremap < <lt>><Left>
 
-inoremap <silent>) <c-r>=ClosePair(')')<Enter>
-inoremap <silent>} <c-r>=ClosePair('}')<Enter>
-inoremap <silent>] <c-r>=ClosePair(']')<Enter>
-autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<Enter>
+inoremap <silent>) <c-r>=ClosePair(')')<CR>
+inoremap <silent>} <c-r>=ClosePair('}')<CR>
+inoremap <silent>] <c-r>=ClosePair(']')<CR>
+autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<CR>
 
-inoremap <silent>" <c-r>=QuoteDelim('"')<Enter>
-inoremap <silent>' <c-r>=QuoteDelim("'")<Enter>
+inoremap <silent>" <c-r>=QuoteDelim('"')<CR>
+inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
 
 function OpenPair(char, opChar)
     let line = getline('.')
@@ -125,7 +125,7 @@ function QuoteDelim(char)
 endf
 
 " Automatic double parenthesis/brackets/quotes removal
-inoremap <silent><BS> <c-r>=BSCheck()<Enter>
+inoremap <silent><BS> <c-r>=BSCheck()<CR>
 
 function BSCheck()
     let leftC = ['(', '{', '[', '<', '"', "'"]
@@ -141,14 +141,14 @@ function BSCheck()
 endf
 
 " Automatic indent between curly braces
-inoremap <silent><Enter> <c-r>=EnterCheck()<Enter>
+inoremap <silent><CR> <c-r>=EnterCheck()<CR>
 
 function EnterCheck()
     let line = getline('.')
     if line[col('.') - 2] == '{' && line[col('.') - 1] == '}'
-        return "\<Enter>\<Enter>\<Up>\<Tab>"
+        return "\<CR>\<CR>\<Up>\<Tab>"
     else
-        return "\<Enter>"
+        return "\<CR>"
     endif
 endf
 
