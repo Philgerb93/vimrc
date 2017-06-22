@@ -97,7 +97,7 @@ autocmd FileType html,vim inoremap <silent>> <c-r>=ClosePair('>')<CR>
 inoremap <silent>" <c-r>=QuoteDelim('"')<CR>
 inoremap <silent>' <c-r>=QuoteDelim("'")<CR>
 
-function OpenPair(char, opChar)
+function! OpenPair(char, opChar)
     if PairAllowed()
         return a:char.a:opChar."\<Left>"
     else
@@ -105,7 +105,7 @@ function OpenPair(char, opChar)
     endif
 endf
 
-function ClosePair(char)
+function! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
     else
@@ -113,7 +113,7 @@ function ClosePair(char)
     endif
 endf
 
-function QuoteDelim(char)
+function! QuoteDelim(char)
     if PairAllowed() && NotInWord(a:char) && !(&ft=='vim' && a:char == '"')
         \ && getline('.')[col('.') - 2] != '\'
         return a:char.a:char."\<Left>"
@@ -124,7 +124,7 @@ function QuoteDelim(char)
     endif
 endf
 
-function PairAllowed()
+function! PairAllowed()
     if col('.') == col('$')
         return 1
     endif
@@ -136,7 +136,7 @@ function PairAllowed()
     return 0
 endf
 
-function NotInWord(char)
+function! NotInWord(char)
     let prev_char = getline('.')[col('.') - 2]
     if a:char != "'" || col('$') == 1
         return 1
@@ -152,7 +152,7 @@ endf
 " Automatic double parenthesis/brackets/quotes removal
 inoremap <silent><BS> <c-r>=BSCheck()<CR>
 
-function BSCheck()
+function! BSCheck()
     let leftC = ['(', '{', '[', '<', '"', "'"]
     let rightC = [')', '}', ']', '>', '"', "'"]
     let line = getline('.')
@@ -168,7 +168,7 @@ endf
 " Automatic indent between curly braces
 inoremap <silent><CR> <c-r>=EnterCheck()<CR>
 
-function EnterCheck()
+function! EnterCheck()
     let line = getline('.')
     if line[col('.') - 2] == '{' && line[col('.') - 1] == '}'
         return "\<CR>\<CR>\<Up>\<Tab>"
