@@ -21,6 +21,9 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 
+" Syntastic config
+let g:syntastic_python_python_exec = 'python3'
+
 " Airline config
 set laststatus=2
 set ttimeoutlen=10
