@@ -13,6 +13,7 @@ Plug 'ervandew/supertab'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
+Plug 'vimwiki/vimwiki'
 Plug 'Yggdroot/indentLine'
 call plug#end()
 
@@ -31,6 +32,10 @@ let g:airline_powerline_fonts = 1
 set updatetime=250
 let g:gitgutter_sign_column_always = 1
 "highlight clear SignColumn
+
+" Vimwiki config
+let g:vimwiki_list = [{'path': '~/Documents/notes',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " IndentLine config
 let g:indentLine_enabled = 0
@@ -141,7 +146,7 @@ function! NotInWord(char)
     if a:char != "'" || col('$') == 1
         return 1
     endif
-    if !(prev_char >= 'a' && prev_char <= 'z' 
+    if !(prev_char >= 'a' && prev_char <= 'z'
         \ || prev_char >= 'A' && prev_char <= 'Z')
         return 1
     else
